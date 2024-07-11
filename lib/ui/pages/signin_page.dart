@@ -25,6 +25,8 @@ class _SignInPageState extends State<SignInPage> {
             // TODO: implement listener
             if (state is LoginSuccess) {
               router.goNamed(RouteNames.home);
+              emailController.clear();
+              passwordController.clear();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Login Success'),
