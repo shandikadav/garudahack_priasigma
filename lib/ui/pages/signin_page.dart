@@ -44,6 +44,11 @@ class _SignInPageState extends State<SignInPage> {
           },
           child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
+              if (state is LoginLoading) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
               return ListView(
                 children: [
                   Row(

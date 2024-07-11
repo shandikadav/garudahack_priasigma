@@ -14,6 +14,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<RegisterSubmitted>((event, emit) async {
       // TODO: implement event handler
       emit(RegisterLoading());
+      await Future.delayed(const Duration(seconds: 1));
       try {
         final response = await http.post(
           Uri.parse('https://7481qp09-3000.asse.devtunnels.ms/register'),
