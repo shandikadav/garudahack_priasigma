@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:garudahack_priasigmas/routes/router.dart';
 import 'package:garudahack_priasigmas/shared/theme/themes.dart';
 import 'package:garudahack_priasigmas/ui/widgets/buttons.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -166,7 +168,9 @@ class SignUpPage extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  router.goNamed(RouteNames.signIn);
+                },
                 child: Text(
                   'Login',
                   style: whiteColorTextStyle.copyWith(
