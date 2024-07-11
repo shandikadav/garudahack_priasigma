@@ -44,6 +44,11 @@ class SignUpPage extends StatelessWidget {
           },
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) {
+              if (state is RegisterLoading) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
               return ListView(
                 children: [
                   Padding(
