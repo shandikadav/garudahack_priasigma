@@ -1,3 +1,4 @@
+import 'package:garudahack_priasigmas/ui/pages/signup_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../ui/pages/splash_page.dart';
@@ -9,14 +10,14 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: RouteNames.splash,
-      builder: (context, state) => const SplashPage(),
+      name: RouteNames.home,
+      builder: (context, state) => const SignUpPage(),
       // routes: []
     ),
     GoRoute(
-      path: '/',
-      name: RouteNames.splash,
-      builder: (context, state) => const SplashPage(),
+      path: '/signUp',
+      name: RouteNames.signUp,
+      builder: (context, state) => const SignUpPage(),
       // routes: []
     ),
   ],
