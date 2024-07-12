@@ -14,7 +14,7 @@ class GetProductBloc extends Bloc<GetProductEvent, GetProductState> {
     on<GettingProduct>((event, emit) async {
       emit(GetProductLoading());
       try {
-        final response = await dio.get('https://7481qp09-3000.asse.devtunnels.ms/products');
+        final response = await dio.get('https://dakudaku.vercel.app/products');
         if (response.statusCode == 200) {
           List<Product> products = (response.data as List).map((product) => Product.fromJson(product)).toList();
           emit(GetProductSuccess(products));

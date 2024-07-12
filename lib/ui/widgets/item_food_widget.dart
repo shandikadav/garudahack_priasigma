@@ -28,8 +28,8 @@ class FoodItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 0.45 * MediaQuery.of(context).size.width,
-        height: 200,
+        width: 0.42 * MediaQuery.of(context).size.width,
+        height: 220,
         decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(9),
@@ -42,7 +42,7 @@ class FoodItem extends StatelessWidget {
                   topLeft: Radius.circular(9), topRight: Radius.circular(9)),
               child: Image.network(
                 imagesource,
-                width: 0.43 * MediaQuery.of(context).size.width,
+                width: 0.42 * MediaQuery.of(context).size.width,
                 height: 111,
                 fit: BoxFit.fitWidth,
               ),
@@ -58,23 +58,9 @@ class FoodItem extends StatelessWidget {
                   Text(
                     namarestoran,
                     style: blackColorTextStyle.copyWith(
-                      fontSize: 11,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500
                     ),
-                  ),
-                  Container(
-                    width: 50,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                        child: Text(
-                      tanggal_expired,
-                      style: whiteColorTextStyle.copyWith(
-                        fontSize: 7,
-                      ),
-                    )),
                   ),
                 ],
               ),
@@ -87,43 +73,60 @@ class FoodItem extends StatelessWidget {
                   Text(
                     alamat,
                     style: blackColorTextStyle.copyWith(
-                      fontSize: 10,
+                      fontSize: 8,
                       fontWeight: FontWeight.w200,
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Text(harga.toString(),
-                          style: dangerTextsyle.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: 12)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Container(
-                          width: 50,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                              child: Text(
-                            harga_diskon.toString(),
-                            style: whiteColorTextStyle.copyWith(
-                              fontSize: 7,
-                            ),
-                          )),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
             ),
-            
+            const SizedBox(
+              height: 12,
+            ),
+            Column(
+              children: [
+                Container(
+                  width: 50,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Center(
+                    child: Text(
+                      tanggal_expired,
+                      style: whiteColorTextStyle.copyWith(
+                        fontSize: 7,
+                      ),
+                    ),
+                  ),
+                ),
+                Text(harga.toString(),
+                    style: dangerTextsyle.copyWith(
+                        decoration: TextDecoration.lineThrough, fontSize: 12)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    width: 50,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                        child: Text(
+                      harga_diskon.toString(),
+                      style: whiteColorTextStyle.copyWith(
+                        fontSize: 7,
+                      ),
+                    )),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
-}
+  }
 }

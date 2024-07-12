@@ -17,7 +17,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       await Future.delayed(const Duration(seconds: 1));
       try {
         final response = await http.post(
-          Uri.parse('https://7481qp09-3000.asse.devtunnels.ms/register'),
+          Uri.parse('https://dakudaku.vercel.app/register'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': event.email,

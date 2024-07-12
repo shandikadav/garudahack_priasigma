@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await Future.delayed(const Duration(seconds: 1));
       try {
         final response = await http.post(
-          Uri.parse('https://7481qp09-3000.asse.devtunnels.ms/login'),
+          Uri.parse('https://dakudaku.vercel.app/login'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': event.email,

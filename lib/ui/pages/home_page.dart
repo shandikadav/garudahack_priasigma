@@ -134,8 +134,8 @@ class HomePage extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 21),
                           child: Wrap(
-                            spacing: 10, // Add spacing between items
-                            runSpacing: 10, // Add spacing between rows
+                            spacing: 12, // Add spacing between items
+                            runSpacing: 12, // Add spacing between rows
                             children: state.products.map((product) {
                               return FoodItem(
                                 alamat: product.description ?? 'No description',
