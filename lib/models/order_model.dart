@@ -1,49 +1,53 @@
 import 'dart:convert';
 
 class Order {
-    final int? userId;
-    final List<Item>? items;
+  final int? userId;
+  final Items? items;
 
-    Order({
-        this.userId,
-        this.items,
-    });
+  Order({
+    this.userId,
+    this.items,
+  });
 
-    factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
+  factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Order.fromJson(Map<String, dynamic> json) => Order(
-        userId: json[" user_id"],
-        items: json["items"] == null ? [] : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
-    );
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+        userId: json["user_id"],
+        items: json["items"] == null ? null : Items.fromJson(json["items"]),
+      );
 
-    Map<String, dynamic> toJson() => {
-        " user_id": userId,
-        "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() => {
+        "user_id": userId,
+        "items": items?.toJson(),
+      };
 }
 
-class Item {
-    final int? productId;
-    final int? quantity;
+class Items {
+  final int? productId;
+  final int? quantity;
+  final int? storeId;
 
-    Item({
-        this.productId,
-        this.quantity,
-    });
+  Items({
+    this.productId,
+    this.quantity,
+    this.storeId,
+  });
 
-    factory Item.fromRawJson(String str) => Item.fromJson(json.decode(str));
+  factory Items.fromRawJson(String str) => Items.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory Items.fromJson(Map<String, dynamic> json) => Items(
         productId: json["product_id"],
         quantity: json["quantity"],
-    );
+        storeId: json["store_id"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "product_id": productId,
         "quantity": quantity,
-    };
+        "store_id": storeId,
+      };
 }
