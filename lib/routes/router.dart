@@ -13,14 +13,14 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: RouteNames.profile,
-      builder: (context, state) => const ProfilePage(),
+      name: RouteNames.splash,
+      builder: (context, state) => const SplashPage(),
       // routes: []
     ),
     GoRoute(
       path: '/signUp',
       name: RouteNames.signUp,
-      builder: (context, state) =>  SignUpPage(),
+      builder: (context, state) => SignUpPage(),
       // routes: []
     ),
     GoRoute(
@@ -30,6 +30,12 @@ final router = GoRouter(
     GoRoute(
         path: '/home',
         name: RouteNames.home,
-        builder: (context, state) => const HomePage())
+        builder: (context, state) => const HomePage()),
+    GoRoute(
+      path: '/profile',
+      name: RouteNames.profile,
+      builder: (context, state) => const ProfilePage(),
+      // routes: []
+    ),
   ],
 );
