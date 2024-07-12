@@ -4,12 +4,12 @@ import 'package:garudahack_priasigmas/shared/theme/themes.dart';
 class CategoryItems extends StatelessWidget {
   final String title;
   final String iconSource;
-  final VoidCallback? onPressed;
+  final VoidCallback? onTap;
   const CategoryItems(
       {super.key,
       required this.title,
       required this.iconSource,
-      this.onPressed});
+      this.onTap});
   @override
   Widget build(BuildContext context) {
     return Container(

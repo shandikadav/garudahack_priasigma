@@ -29,7 +29,7 @@ class FoodItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 0.43 * MediaQuery.of(context).size.width,
-        height: 178,
+        height: 200,
         decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(9),
@@ -48,8 +48,17 @@ class FoodItem extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 8,
+                height: 8,
             ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 9),
+                child: Text(
+                      namamakanan,
+                      style: blackColorTextStyle.copyWith(
+                        fontSize: 12,
+                      ),
+                    ),
+              ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Row(

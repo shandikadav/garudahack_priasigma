@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:garudahack_priasigmas/shared/theme/themes.dart';
-
 import '../../routes/router.dart';
 import '../widgets/carousel_widget.dart';
 import '../widgets/item_card_widget.dart';
@@ -91,7 +90,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 22),
-                const Padding(
+               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 21),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,21 +98,34 @@ class HomePage extends StatelessWidget {
                       CategoryItems(
                         title: "Meals",
                         iconSource: "assets/Ic_meals.png",
+                        onTap: () {
+                         router.goNamed('meals-Page');
+                        },
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       CategoryItems(
                         title: "Snacks",
                         iconSource: "assets/IC_Snack.png",
+                        onTap:  () {
+                           router.goNamed(RouteNames.mealsPage);
+                        },
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       CategoryItems(
-                        title: "Fruit",
-                        iconSource: "assets/IC_Buah.png",
-                      ),
-                      SizedBox(width: 12),
+                      title: "Fruit",
+                      iconSource: "assets/IC_Buah.png",
+                      onTap: () {
+                        router.goNamed(RouteNames.mealsPage);
+                      },
+                    ),
+                      const SizedBox(width: 12),
                       CategoryItems(
                           title: "Beverages",
-                          iconSource: "assets/IC_MINUMAN.png"),
+                          iconSource: "assets/IC_MINUMAN.png",
+                          onTap: () {
+                            router.goNamed(RouteNames.mealsPage);
+                          },
+            ),
                     ],
                   ),
                 ),
@@ -141,7 +153,8 @@ class HomePage extends StatelessWidget {
                           imageSource: 'assets/Resto1.png',
                           star: 5,
                           namarestoran: "Padang Merdeka",
-                          onTap: () {}),
+                          onTap: () {
+                          }),
                       ItemCard(
                         alamat: "Serpong",
                         imageSource: 'assets/Resto2.png',
@@ -181,13 +194,13 @@ class HomePage extends StatelessWidget {
                         star: 4,
                         namarestoran: "Burger Bangor",
                         onTap: () {
-                          // router.goNamed(
-                          //   RouteNames.detailFood,
-                          //   extra: {
-                          //     'imageSource': 'assets/IMG_Food1.png',
-                          //    'filteredClassList': <FoodItem>[],
-                          //   },
-                          // );
+                          router.goNamed(
+                            RouteNames.detailFood,
+                            // extra: {
+                            //   'imageSource': 'assets/IMG_Food1.png',
+                            //  'filteredClassList': <FoodItem>[],
+                            // },
+                          );
                         },
                       ),
                       FoodItem(
@@ -200,13 +213,13 @@ class HomePage extends StatelessWidget {
                         star: 4,
                         namarestoran: "Burger Bangor",
                         onTap: () {
-                          // router.goNamed(
-                          //   RouteNames.detailFood,
+                          router.goNamed(
+                           RouteNames.detailFood,
                           //   extra: {
                           //     'imageSource': 'assets/IMG_Food2.png',
                           //    'filteredClassList': <FoodItem>[],
                           //   },
-                          // );
+                          );
                         },
                       ),
                     ],

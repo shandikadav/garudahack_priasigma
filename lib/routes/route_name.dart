@@ -6,4 +6,8 @@ abstract class RouteNames {
   static const signUp = 'signUp';
   static const home = 'home';
   static const profile = 'profile';
+  static const detailFood = "detail-food";
+  static const mealsPage = "meals-Page";
+  static const snackpage = "snack-page";
+  static const fruitspages =  "fruits-page";
 }
