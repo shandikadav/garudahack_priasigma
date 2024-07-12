@@ -6,4 +6,5 @@ abstract class RouteNames {
   static const signUp = 'signUp';
   static const home = 'home';
   static const profile = 'profile';
+  static const createshop = 'createshop';
 }
