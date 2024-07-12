@@ -17,7 +17,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       name: RouteNames.splash,
-      builder: (context, state) => const SplashPage(),
+      builder: (context, state) => const HomePage(),
       // routes: []
     ),
     GoRoute(
@@ -32,7 +32,14 @@ final router = GoRouter(
     GoRoute(
         path: '/home',
         name: RouteNames.home,
-        builder: (context, state) => const HomePage()),
+        builder: (context, state) => const HomePage(),
+        routes: [
+          GoRoute(
+          path: 'meals',
+          name: RouteNames.meals,
+          builder: (context, state) => const MealsPage(),
+        ),
+        ]),
     GoRoute(
       path: '/profile',
       name: RouteNames.profile,
@@ -56,11 +63,7 @@ final router = GoRouter(
             );
           },
         ),
-        GoRoute(
-          path: 'meals-Page',
-          name: RouteNames.mealsPage,
-          builder: (context, state) => const MealsPage(),
-        ),
+        
       ],
     ),
   ],
