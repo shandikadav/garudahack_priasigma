@@ -1,3 +1,4 @@
+import 'package:garudahack_priasigmas/ui/pages/createshop_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/home_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/profile_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/signup_page.dart';
@@ -14,7 +15,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       name: RouteNames.home,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const CreateshopPage(),
       // routes: []
     ),
     GoRoute(
