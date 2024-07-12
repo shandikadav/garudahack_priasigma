@@ -11,6 +11,7 @@ import '../ui/pages/signin_page.dart';
 import '../ui/widgets/item_food_widget.dart';
 
 part 'route_name.dart';
+
 // GoRouter configuration
 final router = GoRouter(
   routes: [
@@ -23,7 +24,7 @@ final router = GoRouter(
     GoRoute(
       path: '/signUp',
       name: RouteNames.signUp,
-      builder: (context, state) =>  SignUpPage(),
+      builder: (context, state) => SignUpPage(),
     ),
     GoRoute(
         path: '/signIn',
@@ -34,11 +35,19 @@ final router = GoRouter(
         name: RouteNames.home,
         builder: (context, state) => const HomePage(),
         routes: [
+          // GoRoute(
+          //   path: 'meals',
+          //   name: RouteNames.meals,
+          //   builder: (context, state) => const MealsPage(),
+          // ),
           GoRoute(
-          path: 'meals',
-          name: RouteNames.meals,
-          builder: (context, state) => const MealsPage(),
-        ),
+            path: 'detail-food/:id',
+            name: RouteNames.detailfood,
+            builder: (context, state) {
+              final id = state.pathParameters['id']!;
+              return DetailFoodItem(productId: id);
+            },
+          ),
         ]),
     GoRoute(
       path: '/profile',
@@ -49,22 +58,7 @@ final router = GoRouter(
       path: '/fruit-pages',
       name: RouteNames.fruitspages,
       builder: (context, state) => const FruitsPages(),
-      routes: [
-        GoRoute(
-          path: 'detail-food',
-          name: RouteNames.detailFood,
-          builder: (context, state) {
-            final extra = state.extra as Map<String, dynamic>? ?? {};
-            final imageSource = extra['imageSource'] as String? ?? 'assets/IMAGE_Default.png';
-            final filteredClassList = extra['filteredClassList'] as List<FoodItem>? ?? [];
-            return DetailFoodItem(
-              imageSource: imageSource,
-              filteredClassList: filteredClassList,
-            );
-          },
-        ),
-        
-      ],
+      routes: [],
     ),
   ],
 );

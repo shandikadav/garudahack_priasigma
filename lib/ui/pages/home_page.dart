@@ -95,7 +95,7 @@ class HomePage extends StatelessWidget {
                       children: [
                         CategoryItems(
                           onTap: () {
-                            router.goNamed(RouteNames.meals);
+                            router.goNamed('meals');
                           },
                           title: "Meals",
                           iconSource: "assets/Ic_meals.png",
@@ -151,11 +151,11 @@ class HomePage extends StatelessWidget {
                                 star: 5,
                                 namarestoran: product.name ?? 'No name',
                                 onTap: () {
+                                   print('Product ID: ${product.id}');
                                   router.goNamed(
-                                    RouteNames.detailFood,
-                                    extra: {
-                                      'imageSource': product.id.toString(),
-                                      'filteredClassList': state.products,
+                                    RouteNames.detailfood,
+                                    pathParameters: {
+                                      'id': product.id.toString(),
                                     },
                                   );
                                 },

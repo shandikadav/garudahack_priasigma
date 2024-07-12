@@ -1,29 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:garudahack_priasigmas/routes/router.dart';
+import 'package:dio/dio.dart';
+import 'package:garudahack_priasigmas/models/product_model.dart';
 import 'package:garudahack_priasigmas/shared/theme/themes.dart';
-import 'package:garudahack_priasigmas/ui/widgets/item_food_widget.dart';
 
 class DetailFoodItem extends StatefulWidget {
-  final String imageSource;
-  // final String namamakanan;
-  final List<FoodItem> filteredClassList;
+  final String productId;
 
-  const DetailFoodItem({
-    Key? key,
-    required this.imageSource,
-    // required this.namamakanan,
-    required this.filteredClassList,
-  }) : super(key: key);
+  const DetailFoodItem({Key? key, required this.productId}) : super(key: key);
 
   @override
   _DetailFoodItemState createState() => _DetailFoodItemState();
 }
 
 class _DetailFoodItemState extends State<DetailFoodItem> {
-  int quantity = 1; // variabel untuk menyimpan jumlah item yang ingin dipesan
+  int quantity = 1;
+  Product? product;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProduct();
+    print(widget.productId);
+  }
+
+  Future<void> fetchProduct() async {
+    final dio = Dio();
+    try {
+      final response = await dio
+          .get('https://dakudaku.vercel.app/product/${widget.productId}');
+      setState(() {
+        print(widget.productId);
+        product = Product.fromJson(response.data);
+        isLoading = false;
+      });
+    } catch (e) {
+      // Handle error
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        backgroundColor: primaryColor,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (product == null) {
+      return Scaffold(
+        backgroundColor: primaryColor,
+        body: Center(
+          child: Text('Product not found', style: blackColorTextStyle),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -38,7 +76,7 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
             ),
             child: GestureDetector(
               onTap: () {
-                router.goNamed(RouteNames.home);
+                Navigator.pop(context);
               },
               child: const Icon(Icons.arrow_back),
             ),
@@ -47,160 +85,190 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
       ),
       body: ListView(
         children: [
-          Image.asset(
-            widget.imageSource,
-            fit: BoxFit.contain,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage("${product!.photo}"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Burger Sultan",
+                  product!.name ?? 'No name',
                   style: blackColorTextStyle.copyWith(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Rp. 30,000",
+                      "Rp. ${product!.price}",
                       style: dangerTextsyle.copyWith(
                         decoration: TextDecoration.lineThrough,
                         fontSize: 20,
                       ),
                     ),
                     Text(
-                      "Rp. 26,000",
+                      "Rp. ${product!.discountPrice}",
                       style: blackColorTextStyle.copyWith(
                         fontSize: 20,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(
+                  height: 22,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (quantity > 1) {
-                            quantity--; // mengurangi jumlah item
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(500),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.remove,
-                            color: blackColor,
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (quantity > 1) {
+                                quantity--; // mengurangi jumlah item
+                              }
+                            });
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(500),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.remove,
+                                color: blackColor,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          quantity.toString(), // menampilkan jumlah item
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              quantity++; // menambah jumlah item
+                            });
+                          },
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(500),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.add,
+                                color: blackColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(width: 8),
                     Text(
-                      quantity.toString(), // menampilkan jumlah item
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          quantity++; // menambah jumlah item
-                        });
-                      },
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(500),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: blackColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      "20% Off",
+                      "${product!.discount}% Off",
                       style: dangerTextsyle.copyWith(fontSize: 20),
                     ),
                   ],
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(
+                  height: 18,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Recommend to eat before : ",
-                      style: blackColorTextStyle.copyWith(fontSize: 15),
+                      'Recommended to eat before',
+                      style: blackColorTextStyle.copyWith(
+                        fontSize: 13,
+                      ),
                     ),
                     Container(
-                      width: 100,
-                      height: 25,
+                      width: 96,
+                      height: 18,
                       decoration: BoxDecoration(
                         color: Colors.grey,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
                         child: Text(
-                          "13-07-2024",
-                          style: whiteColorTextStyle.copyWith(fontSize: 12),
+                          " ${product!.expiryDate}",
+                          style: blackColorTextStyle.copyWith(fontSize: 13,),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(
+                  height: 30,
+                ),
                 Text(
-                  "Juicy 85% lean Angus beef patty, perfectly browned with garlic, chili powder, cumin, and onion powder. Served on a toasted bun with lettuce, tomato, onions, and pickles.",
+                  product!.description ?? 'No description',
                   textAlign: TextAlign.justify,
                   style: blackColorTextStyle.copyWith(
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 25),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Action on button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: blackColor,
-                      minimumSize: Size(130, 60),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: whiteColor,
-                          child: Icon(
-                            Icons.shopping_bag,
-                            color: blackColor,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 80),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Action on button press
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: blackColor,
+                        minimumSize: Size(130, 60),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: whiteColor,
+                            child: Icon(
+                              Icons.shopping_bag,
+                              color: blackColor,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Check Out",
-                          style: whiteColorTextStyle.copyWith(fontSize: 12),
-                        ),
-                      ],
+                          Text(
+                            "Check Out",
+                            style: whiteColorTextStyle.copyWith(fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

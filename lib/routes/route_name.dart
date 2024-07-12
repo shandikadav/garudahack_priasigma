@@ -6,7 +6,7 @@ abstract class RouteNames {
   static const signUp = 'signUp';
   static const home = 'home';
   static const profile = 'profile';
-  static const detailFood = "detail-food";
+  static const detailfood = "detail-food/:id";
   static const meals = "meals";
   static const snackpage = "snack-page";
   static const fruitspages =  "fruits-page";
