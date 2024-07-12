@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:garudahack_priasigmas/blocs/order/order_bloc.dart';
 import 'package:garudahack_priasigmas/models/order_model.dart';
 import 'package:garudahack_priasigmas/models/product_model.dart';
+import 'package:garudahack_priasigmas/models/user_model.dart';
 import 'package:garudahack_priasigmas/shared/theme/themes.dart';
 
 class DetailFoodItem extends StatefulWidget {
@@ -43,18 +46,37 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
     }
   }
 
-  void handleCheckout() {
+  Future<void> handleCheckout() async {
+    final user = await User.getFromSharedPreferences();
+    if (user == null) {
+      // Handle user not found case
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User not found')));
+      return;
+    }
+
+    // final storeId = await getStoreIdFromSharedPreferences();
+    // if (storeId == null) {
+    //   // Handle store ID not found case
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Store ID not found')));
+    //   return;
+    // }
+
     final order = Order(
-      userId: 2, // Contoh user id
+      userId: 5,
       items: Items(
         productId: int.parse(widget.productId),
         quantity: quantity,
-        storeId: 1, // Contoh store id
+        storeId: 1,
       ),
     );
 
     print('Order Data: ${order.toJson()}');
     orderBloc.add(CreateOrder(order));
+  }
+
+  Future<int?> getStoreIdFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('store_id');
   }
 
   @override

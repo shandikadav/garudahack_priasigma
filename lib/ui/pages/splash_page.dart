@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: primaryColor ,
       body: Center(
-        child: Image.asset('assets/logo.png'),
+        child: Image.asset('assets/ic_logo.png'),
       ),
     );
   }

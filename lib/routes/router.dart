@@ -18,7 +18,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       name: RouteNames.splash,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const SplashPage(),
       // routes: []
     ),
     GoRoute(

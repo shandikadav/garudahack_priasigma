@@ -27,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (response.statusCode == 200) {
           final user = User.fromJson(responseBody);
           print(responseBody);
-          // await User.saveToSharedPreferences(user);
+          await User.saveToSharedPreferences(user);
           emit(LoginSuccess(user));
         } else {
           emit(LoginError(responseBody['message'] ?? 'Failed to login'));
