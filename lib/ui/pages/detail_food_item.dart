@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:garudahack_priasigmas/blocs/order/order_bloc.dart';
 import 'package:garudahack_priasigmas/models/order_model.dart';
 import 'package:garudahack_priasigmas/models/product_model.dart';
@@ -23,18 +21,21 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
   Product? product;
   bool isLoading = true;
   late OrderBloc orderBloc;
+  User? user;
 
   @override
   void initState() {
     super.initState();
     orderBloc = OrderBloc(dio: Dio());
     fetchProduct();
+    getUserFromSharedPreferences();
   }
 
   Future<void> fetchProduct() async {
     final dio = Dio();
     try {
-      final response = await dio.get('https://dakudaku.vercel.app/product/${widget.productId}');
+      final response = await dio
+          .get('https://dakudaku.vercel.app/product/${widget.productId}');
       setState(() {
         product = Product.fromJson(response.data);
         isLoading = false;
@@ -46,23 +47,22 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
     }
   }
 
+  Future<void> getUserFromSharedPreferences() async {
+    final savedUser = await User.getFromSharedPreferences();
+    setState(() {
+      user = savedUser;
+    });
+  }
+
   Future<void> handleCheckout() async {
-    final user = await User.getFromSharedPreferences();
     if (user == null) {
-      // Handle user not found case
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User not found')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('User not found')));
       return;
     }
 
-    // final storeId = await getStoreIdFromSharedPreferences();
-    // if (storeId == null) {
-    //   // Handle store ID not found case
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Store ID not found')));
-    //   return;
-    // }
-
     final order = Order(
-      userId: 5,
+      userId: user!.id,
       items: Items(
         productId: int.parse(widget.productId),
         quantity: quantity,
@@ -70,13 +70,7 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
       ),
     );
 
-    print('Order Data: ${order.toJson()}');
     orderBloc.add(CreateOrder(order));
-  }
-
-  Future<int?> getStoreIdFromSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('store_id');
   }
 
   @override
@@ -86,9 +80,11 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
       child: BlocListener<OrderBloc, OrderState>(
         listener: (context, state) {
           if (state is OrderSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message)));
           } else if (state is OrderFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
         child: Scaffold(
@@ -115,7 +111,9 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
           body: isLoading
               ? Center(child: CircularProgressIndicator())
               : product == null
-                  ? Center(child: Text('Product not found', style: blackColorTextStyle))
+                  ? Center(
+                      child:
+                          Text('Product not found', style: blackColorTextStyle))
                   : ListView(
                       children: [
                         Padding(
@@ -146,7 +144,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                               ),
                               const SizedBox(height: 3),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Rp. ${product!.price}",
@@ -167,7 +166,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                 height: 22,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -184,7 +184,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                           width: 25,
                                           decoration: BoxDecoration(
                                             color: whiteColor,
-                                            borderRadius: BorderRadius.circular(500),
+                                            borderRadius:
+                                                BorderRadius.circular(500),
                                           ),
                                           child: Center(
                                             child: Icon(
@@ -213,7 +214,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                           width: 25,
                                           decoration: BoxDecoration(
                                             color: whiteColor,
-                                            borderRadius: BorderRadius.circular(500),
+                                            borderRadius:
+                                                BorderRadius.circular(500),
                                           ),
                                           child: Center(
                                             child: Icon(
@@ -228,7 +230,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                   SizedBox(width: 8),
                                   Text(
                                     "${product!.discount}% Off",
-                                    style: dangerTextsyle.copyWith(fontSize: 20),
+                                    style:
+                                        dangerTextsyle.copyWith(fontSize: 20),
                                   ),
                                 ],
                               ),
@@ -236,7 +239,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                 height: 18,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Recommended to eat before',
@@ -254,7 +258,9 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                     child: Center(
                                       child: Text(
                                         " ${product!.expiryDate}",
-                                        style: blackColorTextStyle.copyWith(fontSize: 13,),
+                                        style: blackColorTextStyle.copyWith(
+                                          fontSize: 13,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -274,7 +280,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                               SizedBox(
                                 width: double.infinity,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 80),
                                   child: ElevatedButton(
                                     onPressed: handleCheckout,
                                     style: ElevatedButton.styleFrom(
@@ -282,7 +289,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                       minimumSize: Size(130, 60),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         CircleAvatar(
                                           backgroundColor: whiteColor,
@@ -293,7 +301,8 @@ class _DetailFoodItemState extends State<DetailFoodItem> {
                                         ),
                                         Text(
                                           "Check Out",
-                                          style: whiteColorTextStyle.copyWith(fontSize: 12),
+                                          style: whiteColorTextStyle.copyWith(
+                                              fontSize: 12),
                                         ),
                                       ],
                                     ),

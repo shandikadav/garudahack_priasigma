@@ -1,6 +1,7 @@
 import 'package:garudahack_priasigmas/ui/pages/detail_food_item.dart';
 import 'package:garudahack_priasigmas/ui/pages/fruits_pages.dart';
 import 'package:garudahack_priasigmas/ui/pages/home_page.dart';
+import 'package:garudahack_priasigmas/ui/pages/mainpage.dart';
 import 'package:garudahack_priasigmas/ui/pages/meals_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/profile_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/signup_page.dart';
@@ -30,6 +31,20 @@ final router = GoRouter(
         path: '/signIn',
         name: RouteNames.signIn,
         builder: (context, state) => const SignInPage()),
+        GoRoute(
+        path: '/mainpage',
+        name: RouteNames.mainpage,
+        builder: (context, state) => const MainPage(),
+        routes: [
+          GoRoute(
+            path: 'detail-food/:id',
+            name: RouteNames.detailfood,
+            builder: (context, state) {
+              final id = state.pathParameters['id']!;
+              return DetailFoodItem(productId: id);
+            },
+          ),
+        ]),
     GoRoute(
         path: '/home',
         name: RouteNames.home,
@@ -40,14 +55,7 @@ final router = GoRouter(
           //   name: RouteNames.meals,
           //   builder: (context, state) => const MealsPage(),
           // ),
-          GoRoute(
-            path: 'detail-food/:id',
-            name: RouteNames.detailfood,
-            builder: (context, state) {
-              final id = state.pathParameters['id']!;
-              return DetailFoodItem(productId: id);
-            },
-          ),
+          
         ]),
     GoRoute(
       path: '/profile',
