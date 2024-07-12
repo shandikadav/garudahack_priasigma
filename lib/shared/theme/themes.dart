@@ -5,8 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 Color primaryColor = const Color(0xFFF4CE14);
 Color whiteColor = const Color(0xFFF5F7F8);
 Color blackColor = const Color(0xFF000000);
+Color redcolor =  Colors.red ;
 
 // Text Themes
+
+TextStyle dangerTextsyle = GoogleFonts.poppins(
+  color: redcolor
+);
+
 TextStyle primaryColorTextStyle = GoogleFonts.poppins(
   color: primaryColor,
 );
