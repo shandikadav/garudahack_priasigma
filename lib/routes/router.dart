@@ -1,6 +1,7 @@
 import 'package:garudahack_priasigmas/ui/pages/detail_food_item.dart';
 import 'package:garudahack_priasigmas/ui/pages/fruits_pages.dart';
 import 'package:garudahack_priasigmas/ui/pages/home_page.dart';
+import 'package:garudahack_priasigmas/ui/pages/mainpage.dart';
 import 'package:garudahack_priasigmas/ui/pages/meals_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/profile_page.dart';
 import 'package:garudahack_priasigmas/ui/pages/signup_page.dart';
@@ -11,6 +12,7 @@ import '../ui/pages/signin_page.dart';
 import '../ui/widgets/item_food_widget.dart';
 
 part 'route_name.dart';
+
 // GoRouter configuration
 final router = GoRouter(
   routes: [
@@ -23,16 +25,38 @@ final router = GoRouter(
     GoRoute(
       path: '/signUp',
       name: RouteNames.signUp,
-      builder: (context, state) =>  SignUpPage(),
+      builder: (context, state) => SignUpPage(),
     ),
     GoRoute(
         path: '/signIn',
         name: RouteNames.signIn,
         builder: (context, state) => const SignInPage()),
+        GoRoute(
+        path: '/mainpage',
+        name: RouteNames.mainpage,
+        builder: (context, state) => const MainPage(),
+        routes: [
+          GoRoute(
+            path: 'detail-food/:id',
+            name: RouteNames.detailfood,
+            builder: (context, state) {
+              final id = state.pathParameters['id']!;
+              return DetailFoodItem(productId: id);
+            },
+          ),
+        ]),
     GoRoute(
         path: '/home',
         name: RouteNames.home,
-        builder: (context, state) => const HomePage()),
+        builder: (context, state) => const HomePage(),
+        routes: [
+          // GoRoute(
+          //   path: 'meals',
+          //   name: RouteNames.meals,
+          //   builder: (context, state) => const MealsPage(),
+          // ),
+          
+        ]),
     GoRoute(
       path: '/profile',
       name: RouteNames.profile,
@@ -42,26 +66,7 @@ final router = GoRouter(
       path: '/fruit-pages',
       name: RouteNames.fruitspages,
       builder: (context, state) => const FruitsPages(),
-      routes: [
-        GoRoute(
-          path: 'detail-food',
-          name: RouteNames.detailFood,
-          builder: (context, state) {
-            final extra = state.extra as Map<String, dynamic>? ?? {};
-            final imageSource = extra['imageSource'] as String? ?? 'assets/IMAGE_Default.png';
-            final filteredClassList = extra['filteredClassList'] as List<FoodItem>? ?? [];
-            return DetailFoodItem(
-              imageSource: imageSource,
-              filteredClassList: filteredClassList,
-            );
-          },
-        ),
-        GoRoute(
-          path: 'meals-Page',
-          name: RouteNames.mealsPage,
-          builder: (context, state) => const MealsPage(),
-        ),
-      ],
+      routes: [],
     ),
   ],
 );

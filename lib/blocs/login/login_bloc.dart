@@ -26,15 +26,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         if (response.statusCode == 200) {
           final user = User.fromJson(responseBody);
-          print(responseBody);
-          // await User.saveToSharedPreferences(user);
+          print("Login successful: $responseBody"); // Logging
+          await User.saveToSharedPreferences(user);
           emit(LoginSuccess(user));
         } else {
           emit(LoginError(responseBody['message'] ?? 'Failed to login'));
         }
       } catch (e) {
-        emit(LoginError(
-            'Failed to login, please check your email and password'));
+        emit(LoginError('Failed to login, please check your email and password'));
       }
     });
   }

@@ -6,7 +6,7 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-    final int? userId;
+    final int? id;
     final String? name;
     final String? email;
     final String? password;
@@ -19,7 +19,7 @@ class User {
     final DateTime? updatedAt;
 
     User({
-        this.userId,
+        this.id,
         this.name,
         this.email,
         this.password,
@@ -33,7 +33,7 @@ class User {
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        userId: json["user_id"],
+        id: json["id"],
         name: json["name"],
         email: json["email"],
         password: json["password"],
@@ -47,7 +47,7 @@ class User {
     );
 
     Map<String, dynamic> toJson() => {
-        "user_id": userId,
+        "id": id,
         "name": name,
         "email": email,
         "password": password,
@@ -61,21 +61,26 @@ class User {
     };
 
     static Future<void> saveToSharedPreferences(User user) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', userToJson(user));
-  }
-
-  static Future<User?> getFromSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userJson = prefs.getString('user');
-    if (userJson != null) {
-      return userFromJson(userJson);
+        final prefs = await SharedPreferences.getInstance();
+        final userJson = userToJson(user);
+        prefs.setString('user', userJson);
+        print("User saved to SharedPreferences: $userJson"); // Logging
     }
-    return null;
-  }
 
-  static Future<void> removeFromSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove('user');
-  }
+    static Future<User?> getFromSharedPreferences() async {
+        final prefs = await SharedPreferences.getInstance();
+        final userJson = prefs.getString('user');
+        if (userJson != null) {
+            print("User loaded from SharedPreferences: $userJson"); // Logging
+            return userFromJson(userJson);
+        }
+        print("No user found in SharedPreferences"); // Logging
+        return null;
+    }
+
+    static Future<void> removeFromSharedPreferences() async {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.remove('user');
+        print("User removed from SharedPreferences"); // Logging
+    }
 }

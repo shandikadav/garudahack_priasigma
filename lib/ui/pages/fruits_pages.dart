@@ -80,10 +80,10 @@ class FruitsPages extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FoodItem(alamat: "tangerang", namamakanan: "Iga bakar", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food3.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },),
              FoodItem(alamat: "tangerang", namamakanan: "bubur", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food2.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },)
           ],
         ),
@@ -92,10 +92,10 @@ class FruitsPages extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FoodItem(alamat: "tangerang", namamakanan: "Iga bakar", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food3.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },),
              FoodItem(alamat: "tangerang", namamakanan: "bubur", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food2.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },)
           ],
         ),
@@ -104,10 +104,10 @@ class FruitsPages extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FoodItem(alamat: "tangerang", namamakanan: "Iga bakar", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food3.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },),
              FoodItem(alamat: "tangerang", namamakanan: "bubur", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food2.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },)
           ],
         ),
@@ -116,10 +116,10 @@ class FruitsPages extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FoodItem(alamat: "tangerang", namamakanan: "Iga bakar", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food3.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },),
              FoodItem(alamat: "tangerang", namamakanan: "bubur", harga: 20000, harga_diskon: 1000, tanggal_expired: "05-05-2024", imagesource: 'assets/IMG_Food2.png', star: 5, namarestoran: "maknyus", onTap: () {
-              router.goNamed(RouteNames.detailFood);
+              router.goNamed(RouteNames.detailfood);
             },)
           ],
         )

@@ -88,12 +88,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 21),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CategoryItems(
+                          onTap: () {
+                            router.goNamed('meals');
+                          },
                           title: "Meals",
                           iconSource: "assets/Ic_meals.png",
                         ),
@@ -147,7 +150,15 @@ class HomePage extends StatelessWidget {
                                     product.photo ?? 'assets/default.png',
                                 star: 5,
                                 namarestoran: product.name ?? 'No name',
-                                onTap: () {},
+                                onTap: () {
+                                   print('Product ID: ${product.id}');
+                                  router.goNamed(
+                                    RouteNames.detailfood,
+                                    pathParameters: {
+                                      'id': product.id.toString(),
+                                    },
+                                  );
+                                },
                               );
                             }).toList(),
                           ),
