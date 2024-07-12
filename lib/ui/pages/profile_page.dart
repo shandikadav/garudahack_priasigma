@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:garudahack_priasigmas/shared/theme/themes.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool isEnabledName = false;
+  bool isEnabledEmail = false;
+  bool isEnabledNumber = false;
+  bool isEnabledAddress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,16 +126,28 @@ class ProfilePage extends StatelessWidget {
                       height: 4,
                     ),
                     TextField(
-                      // controller: nameController,
+                      enabled: isEnabledName,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: whiteColor,
+                        fillColor: Colors.white,
                         hintText: 'data name',
-                        suffixIcon: Icon(
-                          Icons.edit,
-                          color: blackColor,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            isEnabledName
+                                ? Icons.check_circle
+                                : Icons.edit_outlined,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isEnabledName = !isEnabledName;
+                            });
+                          },
                         ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        disabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
