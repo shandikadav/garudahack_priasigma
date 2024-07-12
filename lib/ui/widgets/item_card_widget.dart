@@ -34,11 +34,11 @@ class ItemCard extends StatelessWidget {
                 topLeft: Radius.circular(9),
                 topRight: Radius.circular(9),
               ),
-              child: Image.asset(
+              child: Image.network(
                 imageSource,
                 height: 111,
                 width: 0.43 * MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               ),
             ),
             const SizedBox(
