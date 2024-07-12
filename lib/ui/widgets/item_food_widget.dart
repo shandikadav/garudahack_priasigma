@@ -28,8 +28,8 @@ class FoodItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 0.43 * MediaQuery.of(context).size.width,
-        height: 178,
+        width: 0.45 * MediaQuery.of(context).size.width,
+        height: 200,
         decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(9),
@@ -40,7 +40,7 @@ class FoodItem extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(9), topRight: Radius.circular(9)),
-              child: Image.asset(
+              child: Image.network(
                 imagesource,
                 width: 0.43 * MediaQuery.of(context).size.width,
                 height: 111,
@@ -120,102 +120,10 @@ class FoodItem extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 7),
-              child: Row(
-                children: [
-                  (star == 5)
-                      ? const Row(
-                          children: [
-                            Icon(Icons.star, size: 13, color: Colors.yellow),
-                            Icon(Icons.star, size: 13, color: Colors.yellow),
-                            Icon(Icons.star, size: 13, color: Colors.yellow),
-                            Icon(Icons.star, size: 13, color: Colors.yellow),
-                            Icon(Icons.star, size: 13, color: Colors.grey),
-                          ],
-                        )
-                      : (star == 4)
-                          ? const Row(
-                              children: [
-                                Icon(Icons.star,
-                                    size: 13, color: Colors.yellow),
-                                Icon(Icons.star,
-                                    size: 13, color: Colors.yellow),
-                                Icon(Icons.star,
-                                    size: 13, color: Colors.yellow),
-                                Icon(Icons.star,
-                                    size: 13, color: Colors.yellow),
-                                Icon(Icons.star, size: 13, color: Colors.grey),
-                              ],
-                            )
-                          : (star == 3)
-                              ? const Row(
-                                  children: [
-                                    Icon(Icons.star,
-                                        size: 13, color: Colors.yellow),
-                                    Icon(Icons.star,
-                                        size: 13, color: Colors.yellow),
-                                    Icon(Icons.star,
-                                        size: 13, color: Colors.yellow),
-                                    Icon(Icons.star_border,
-                                        size: 13, color: Colors.yellow),
-                                    Icon(Icons.star,
-                                        size: 13, color: Colors.grey),
-                                  ],
-                                )
-                              : (star == 2)
-                                  ? const Row(
-                                      children: [
-                                        Icon(Icons.star,
-                                            size: 13, color: Colors.yellow),
-                                        Icon(Icons.star,
-                                            size: 13, color: Colors.yellow),
-                                        Icon(Icons.star_border,
-                                            size: 13, color: Colors.yellow),
-                                        Icon(Icons.star_border,
-                                            size: 13, color: Colors.yellow),
-                                        Icon(Icons.star,
-                                            size: 25, color: Colors.grey),
-                                      ],
-                                    )
-                                  : (star == 1)
-                                      ? const Row(
-                                          children: [
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star_border,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star_border,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star_border,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.grey),
-                                          ],
-                                        )
-                                      : const Row(
-                                          children: [
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                            Icon(Icons.star,
-                                                size: 13, color: Colors.yellow),
-                                          ],
-                                        ),
-                  const SizedBox(
-                    width: 2,
-                  ),
-                ],
-              ),
-            ),
+            
           ],
         ),
       ),
     );
-  }
+}
 }
