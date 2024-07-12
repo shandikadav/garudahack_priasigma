@@ -50,15 +50,7 @@ class FoodItem extends StatelessWidget {
             const SizedBox(
                 height: 8,
             ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 9),
-                child: Text(
-                      namamakanan,
-                      style: blackColorTextStyle.copyWith(
-                        fontSize: 12,
-                      ),
-                    ),
-              ),
+              
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Row(
